@@ -3,6 +3,7 @@ import { AuthenticationRoute } from "../modules/auth/auth.route";
 import { UserRoute } from "../modules/user/user.route";
 import { AssetsRoute } from "../modules/assets/assets.route";
 import { DownloadRoute } from "../modules/download/download.route";
+import { KeywordRoute } from "../modules/keyword/keyword.route";
 
 const router = express.Router();
 
@@ -22,6 +23,10 @@ const moduleRoutes = [
   {
     path: "/download",
     route: DownloadRoute,
+  },
+  {
+    path: "/keyword",
+    route: KeywordRoute,
   },
 ];
 
