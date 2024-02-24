@@ -1,11 +1,31 @@
 import { Request } from "express";
 import { IGenericResponse } from "../../../interface/common";
 import { AuthService, MainService } from "../../../shared/axios";
-
+import { IUploadFile } from "../../../interface/file";
+import { v2 as cloudinary } from "cloudinary";
 const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
+  const files = req.files as IUploadFile[];
+
+  const uploadPromises = files.map(async (file) => {
+    return await cloudinary.uploader.upload(file.path);
+  });
+
+  // // Wait for all uploads to complete
+  const results = await Promise.all(uploadPromises);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const uploadFIles = results.map((file: any) => {
+    return {
+      public_id: file.public_id,
+      type: file.format,
+      url: file.secure_url,
+    };
+  });
+  //@ts-ignore
+  req.body?.file = uploadFIles;
   const response: IGenericResponse = await MainService.post(
     "/assets/insert",
-    req.body,
+    req.body.data,
     {
       headers: {
         Authorization: req.headers.authorization,

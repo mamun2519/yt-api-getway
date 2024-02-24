@@ -16,6 +16,11 @@ export default {
     refresh_token: process.env.REFRESH_SECRET_TOKEN,
     refresh_expire_in: process.env.REFRESH_EXPIRE_IN,
   },
+  cloudinary: {
+    cloudName: process.env.cloudName,
+    apiKey: process.env.apiKey,
+    apiSecret: process.env.apiSecret,
+  },
   authServiceURL: process.env.AUTH_SERVICE_URL,
   mainServiceURL: process.env.MAIN_SERVICE_URL,
 };
