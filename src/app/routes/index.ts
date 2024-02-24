@@ -4,6 +4,7 @@ import { UserRoute } from "../modules/user/user.route";
 import { AssetsRoute } from "../modules/assets/assets.route";
 import { DownloadRoute } from "../modules/download/download.route";
 import { KeywordRoute } from "../modules/keyword/keyword.route";
+import { DonationRoute } from "../modules/donation/donation.route";
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: "/keyword",
     route: KeywordRoute,
+  },
+  {
+    path: "/donation",
+    route: DonationRoute,
   },
 ];
 
