@@ -8,7 +8,10 @@ import { paginationHelpers } from "../../../helper/paginatinHelper";
 import { donationSearchableFields } from "./donation.constant";
 import { IResponse } from "../../../interface/common";
 import { User } from "../user/user.model";
-
+import Stripe from "stripe";
+const stripe = new Stripe(
+  "sk_test_51L1nmNCGpaTt0RU81oq26j6Ta7gwb9pGlOOwxjeXAQgefsXMvmRxFUopKE2St6GDbDpxjUug0KxRyqzL6oKarPcR00lqLjh70r"
+);
 const insertDonationIntoDB = async (
   data: IDonation,
   userId: string
@@ -107,6 +110,26 @@ const myDonationListFromDB = async (
   };
 };
 
+const paymentByStripe = async (
+  data: any
+): Promise<{ clientSecret: string | null }> => {
+  // const { items } = req.body;
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 550,
+    currency: "usd",
+    // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  return {
+    clientSecret: paymentIntent.client_secret,
+  };
+};
+
 export const DonationService = {
   insertDonationIntoDB,
   getAllDonationListFromDB,
@@ -114,4 +137,5 @@ export const DonationService = {
   deleteDonationByIdFromDB,
   updateDonationByIdIntoDB,
   myDonationListFromDB,
+  paymentByStripe,
 };

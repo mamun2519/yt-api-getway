@@ -22,5 +22,6 @@ route.post(
   DonationController.insertDonation
 );
 route.get("/", DonationController.getAllDonationList);
+route.post("/create-payment-intent", DonationController.paymentByStripe);
 
 export const DonationRoute = route;

@@ -87,6 +87,16 @@ const myDonationList = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const paymentByStripe = catchAsync(async (req: Request, res: Response) => {
+  const result = await DonationService.paymentByStripe(req.body);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Payment Intent Fetched",
+    data: result,
+  });
+});
 export const DonationController = {
   insertDonation,
   getAllDonationList,
@@ -94,4 +104,5 @@ export const DonationController = {
   deleteDonationById,
   updateDonationById,
   myDonationList,
+  paymentByStripe,
 };
