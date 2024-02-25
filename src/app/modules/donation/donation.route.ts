@@ -12,6 +12,7 @@ route.get(
   AuthGuard(ENUM_USER_ROLE.USER),
   DonationController.myDonationList
 );
+route.get("/create-payment-intent", DonationController.paymentByStripe);
 route.get("/:id", DonationController.getDonationById);
 route.delete("/:id", DonationController.deleteDonationById);
 route.patch("/:id", DonationController.updateDonationById);
@@ -22,6 +23,5 @@ route.post(
   DonationController.insertDonation
 );
 route.get("/", DonationController.getAllDonationList);
-route.post("/create-payment-intent", DonationController.paymentByStripe);
 
 export const DonationRoute = route;
