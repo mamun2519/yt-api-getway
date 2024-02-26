@@ -40,7 +40,7 @@ const moduleRoutes = [
     route: feedbackRoute,
   },
   {
-    path: "/analytics",
+    path: "/analytic",
     route: AnalyticsRoute,
   },
 ];

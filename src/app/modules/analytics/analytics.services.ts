@@ -1,12 +1,16 @@
 import { Request } from "express";
+
+import { MainService } from "../../../shared/axios";
 import { IGenericResponse } from "../../../interface/common";
-import { AuthService, MainService } from "../../../shared/axios";
 
 const getAnalytics = async (req: Request): Promise<IGenericResponse> => {
-  const response: IGenericResponse = await MainService.get(
-    "/analytics",
-    req.body
-  );
+  const response: IGenericResponse = await MainService.get("/analytic", {
+    params: req.query,
+    headers: {
+      Authorization: req.headers.authorization,
+    },
+  });
+  console.log(response);
   return response;
 };
 
