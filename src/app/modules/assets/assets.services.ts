@@ -21,8 +21,12 @@ const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
       url: file.secure_url,
     };
   });
-  //@ts-ignore
-  req.body?.file = uploadFIles;
+
+  req.body.file = uploadFIles;
+  req.body.data = JSON.parse(req.body.data);
+  const uploadData = { ...req.body.data, file: req.body.file };
+
+  req.body.data = uploadData;
   const response: IGenericResponse = await MainService.post(
     "/assets/insert",
     req.body.data,
