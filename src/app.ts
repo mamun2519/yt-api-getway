@@ -6,7 +6,7 @@ import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import { ApplicationRootRoute } from "./app/routes";
 const app: Application = express();
 
-//middlewares
+//middleware
 app.use([
   express.json(),
   cookieParser(),
