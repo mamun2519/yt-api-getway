@@ -8,14 +8,17 @@ const app: Application = express();
 
 //middlewares
 app.use([
-  cors({
-    origin: "http://localhost:5173",
-  }),
   express.json(),
   cookieParser(),
   express.urlencoded({ extended: true }),
 ]);
 
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+  })
+);
 // app.get("/create-payment-intent", async (req, res) => {
 //   const { items } = req.body;
 
