@@ -6,7 +6,7 @@ import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import { ApplicationRootRoute } from "./app/routes";
 const app: Application = express();
 
-//middleware
+//middlewares
 app.use([
   cors({
     origin: "http://localhost:5173",
