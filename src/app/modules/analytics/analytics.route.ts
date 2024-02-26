@@ -1,8 +1,9 @@
 import express from "express";
-import { AnalyticsService } from "./analytics.services";
+
+import { AnalyticsController } from "./analytics.controller";
 
 const router = express.Router();
 
-router.get("/", AnalyticsService.getAnalytics);
+router.get("/", AnalyticsController.getAnalytics);
 
 export const AnalyticsRoute = router;
