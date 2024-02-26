@@ -6,6 +6,7 @@ import { DownloadRoute } from "../modules/download/download.route";
 import { KeywordRoute } from "../modules/keyword/keyword.route";
 import { DonationRoute } from "../modules/donation/donation.route";
 import { feedbackRoute } from "../modules/feedback/feedback.route";
+import { AnalyticsRoute } from "../modules/analytics/analytics.route";
 
 const router = express.Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
   {
     path: "/feedback",
     route: feedbackRoute,
+  },
+  {
+    path: "/analytics",
+    route: AnalyticsRoute,
   },
 ];
 
