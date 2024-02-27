@@ -47,7 +47,7 @@ const getAllAssetsByUserFromDB = async (
       Authorization: req.cookies.refreshToken,
     },
   });
-  console.log(response);
+  // console.log(response);
   return response;
 };
 const getAllAssetsByAdminFromDB = async (
