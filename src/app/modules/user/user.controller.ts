@@ -16,6 +16,11 @@ const getUserById = catchAsync(async (req: Request, res: Response) => {
 
   sendResponse(res, result);
 });
+const getUserByEmail = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.getUserByEmailFromDB(req);
+
+  sendResponse(res, result);
+});
 
 const deleteUserById = catchAsync(async (req: Request, res: Response) => {
   const result = await UserService.deleteUserByIdIntoDB(req);
@@ -27,4 +32,5 @@ export const UserController = {
   getAllUser,
   getUserById,
   deleteUserById,
+  getUserByEmail,
 };

@@ -23,6 +23,19 @@ const getUserByIdFromDB = async (req: Request): Promise<IGenericResponse> => {
   );
   return response;
 };
+const getUserByEmailFromDB = async (
+  req: Request
+): Promise<IGenericResponse> => {
+  const response: IGenericResponse = await AuthService.get(
+    `/user/${req.params.email}`,
+    {
+      headers: {
+        Authorization: req.headers.authorization,
+      },
+    }
+  );
+  return response;
+};
 const deleteUserByIdIntoDB = async (
   req: Request
 ): Promise<IGenericResponse> => {
@@ -40,4 +53,5 @@ export const UserService = {
   getAllUserFromDB,
   getUserByIdFromDB,
   deleteUserByIdIntoDB,
+  getUserByEmailFromDB,
 };
