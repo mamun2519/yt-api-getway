@@ -10,7 +10,7 @@ const feedbackInsertIntoDB = async (
     req.body,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -22,7 +22,7 @@ const getAllFeedbackListFromDB = async (
   const response: IGenericResponse = await AuthService.get("/feedback", {
     params: req.query,
     headers: {
-      Authorization: req.headers.authorization,
+      Authorization: req.cookies.refreshToken,
     },
   });
   return response;
@@ -35,7 +35,7 @@ const getFeedbackByIdFromDB = async (
     `/feedback/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -48,7 +48,7 @@ const updateFeedbackIntoDB = async (
     `/feedback/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -61,7 +61,7 @@ const deleteFeedbackByIdIntoDB = async (
     `/feedback/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );

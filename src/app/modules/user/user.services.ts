@@ -6,7 +6,7 @@ const getAllUserFromDB = async (req: Request): Promise<IGenericResponse> => {
   const response: IGenericResponse = await AuthService.get("/user/all-user", {
     params: req.query,
     headers: {
-      Authorization: req.headers.authorization,
+      Authorization: req.cookies.refreshToken,
     },
   });
   return response;
@@ -17,7 +17,7 @@ const getUserByIdFromDB = async (req: Request): Promise<IGenericResponse> => {
     `/user/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -30,7 +30,7 @@ const getUserByEmailFromDB = async (
     `/user/${req.params.email}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -43,7 +43,7 @@ const deleteUserByIdIntoDB = async (
     `/user/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );

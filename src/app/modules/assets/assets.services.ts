@@ -32,7 +32,7 @@ const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
     req.body.data,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -44,7 +44,7 @@ const getAllAssetsByUserFromDB = async (
   const response: IGenericResponse = await MainService.get("/assets/all-user", {
     params: req.query,
     headers: {
-      Authorization: req.headers.authorization,
+      Authorization: req.cookies.refreshToken,
     },
   });
   console.log(response);
@@ -58,7 +58,7 @@ const getAllAssetsByAdminFromDB = async (
     {
       params: req.query,
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -72,7 +72,7 @@ const getAssetByIdForUserFromDB = async (
     `/assets/details-user/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -85,7 +85,7 @@ const getAssetByIdForAdminFromDB = async (
     `/assets/details-admin/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -98,7 +98,7 @@ const deleteAssetByIdIntoDB = async (
     `/assets/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -111,7 +111,7 @@ const updateAssetByIdIntoDB = async (
     `/assets/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );

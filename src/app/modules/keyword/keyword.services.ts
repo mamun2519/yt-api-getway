@@ -8,7 +8,7 @@ const keywordInsertIntoDB = async (req: Request): Promise<IGenericResponse> => {
     req.body,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -22,7 +22,7 @@ const getAllKeywordsFromDB = async (
     {
       params: req.query,
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -37,7 +37,7 @@ const getKeywordByIdFromDB = async (
     `/keyword/getOneKeyword/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -52,7 +52,7 @@ const getAllTrendingKeywords = async (
     {
       params: req.query,
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );

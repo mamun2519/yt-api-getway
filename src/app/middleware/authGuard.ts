@@ -10,7 +10,8 @@ const AuthGuard =
   (...requiredRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const token = req.headers.authorization;
+      const token = req.cookies.refreshToken;
+
       if (!token) {
         throw new API_Error(StatusCodes.UNAUTHORIZED, "You are not authorized");
       }

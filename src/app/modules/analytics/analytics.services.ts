@@ -10,7 +10,7 @@ const getAnalytics = async (req: Request): Promise<IGenericResponse> => {
     `/analytic?donation=${donation}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );

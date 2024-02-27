@@ -10,7 +10,7 @@ const downloadInsertIntoDB = async (
     req.body,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -22,7 +22,7 @@ const getAllDownloadListFromDB = async (
   const response: IGenericResponse = await MainService.get("/download", {
     params: req.query,
     headers: {
-      Authorization: req.headers.authorization,
+      Authorization: req.cookies.refreshToken,
     },
   });
   console.log(response);
@@ -36,7 +36,7 @@ const getDownloadByIdFromDB = async (
     `/download/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -49,7 +49,7 @@ const updateDownloadIntoDB = async (
     `/download/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -62,7 +62,7 @@ const deleteDownloadByIdIntoDB = async (
     `/download/${req.params.id}`,
     {
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
@@ -75,7 +75,7 @@ const myDownloadListFrom = async (req: Request): Promise<IGenericResponse> => {
     {
       params: req.query,
       headers: {
-        Authorization: req.headers.authorization,
+        Authorization: req.cookies.refreshToken,
       },
     }
   );
