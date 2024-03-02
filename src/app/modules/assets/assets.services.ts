@@ -2,7 +2,6 @@ import { Request } from "express";
 import { IGenericResponse } from "../../../interface/common";
 import { AuthService, MainService } from "../../../shared/axios";
 import { IUploadFile } from "../../../interface/file";
-import { v2 as cloudinary } from "cloudinary";
 import { FileUploadHelper } from "../../../helper/fileUploader";
 import { sendArrayReturnObject } from "../../../utils/tags";
 
@@ -14,13 +13,18 @@ const createAssetIntoDB = async (req: Request) => {
     type: uploadedImage?.format,
     url: uploadedImage?.secure_url,
   };
-
+  //set file
   req.body.file = file;
+  // persing data
   req.body.data = JSON.parse(req.body.data);
+  // send array or convert object
   const tags = sendArrayReturnObject(req.body.data.tags);
+  // set tags
   req.body.data.tags = tags;
   const uploadData = { ...req.body.data, file: req.body.file };
+  // set updated data
   req.body.data = uploadData;
+  // send main service response
   const response: IGenericResponse = await MainService.post(
     "/assets/insert",
     req.body.data,
