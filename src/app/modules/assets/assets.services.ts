@@ -3,29 +3,23 @@ import { IGenericResponse } from "../../../interface/common";
 import { AuthService, MainService } from "../../../shared/axios";
 import { IUploadFile } from "../../../interface/file";
 import { v2 as cloudinary } from "cloudinary";
-const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
-  const files = req.files as IUploadFile[];
+import { FileUploadHelper } from "../../../helper/fileUploader";
+import { sendArrayReturnObject } from "../../../utils/tags";
 
-  const uploadPromises = files.map(async (file) => {
-    return await cloudinary.uploader.upload(file.path);
-  });
+const createAssetIntoDB = async (req: Request) => {
+  const SendingFile = req.file as IUploadFile;
+  const uploadedImage = await FileUploadHelper.uploadToCloudinary(SendingFile);
+  const file = {
+    public_id: uploadedImage?.public_id,
+    type: uploadedImage?.format,
+    url: uploadedImage?.secure_url,
+  };
 
-  // // Wait for all uploads to complete
-  const results = await Promise.all(uploadPromises);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const uploadFIles = results.map((file: any) => {
-    return {
-      public_id: file.public_id,
-      type: file.format,
-      url: file.secure_url,
-    };
-  });
-
-  req.body.file = uploadFIles;
+  req.body.file = file;
   req.body.data = JSON.parse(req.body.data);
+  const tags = sendArrayReturnObject(req.body.data.tags);
+  req.body.data.tags = tags;
   const uploadData = { ...req.body.data, file: req.body.file };
-
   req.body.data = uploadData;
   const response: IGenericResponse = await MainService.post(
     "/assets/insert",
@@ -37,6 +31,8 @@ const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
     }
   );
   return response;
+  // const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+  // console.log(uploadedImage);
 };
 const getAllAssetsByUserFromDB = async (
   req: Request
