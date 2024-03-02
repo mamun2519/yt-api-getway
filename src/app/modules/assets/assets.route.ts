@@ -11,7 +11,7 @@ router.get("/details-admin/:id", AssetController.getAssetByIdForAdmin);
 
 router.post(
   "/insert",
-  FileUploadHelper.upload.array("files", 4),
+  FileUploadHelper.upload.single("file"),
   AssetController.PostAsset
 );
 router.get("/all-user", AssetController.getAllAssetByUser);

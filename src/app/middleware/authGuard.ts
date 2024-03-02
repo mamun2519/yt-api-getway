@@ -12,6 +12,8 @@ const AuthGuard =
     try {
       const token = req.cookies.refreshToken;
 
+      console.log("Token------", token);
+
       if (!token) {
         throw new API_Error(StatusCodes.UNAUTHORIZED, "You are not authorized");
       }

@@ -9,7 +9,7 @@ import { AuthenticationService } from "./auth.services";
 const singInWithGoogle = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthenticationService.singUpWithGoogle(req);
   const { refreshToken, ...others } = result.data;
-  console.log(result);
+
   console.log("RefreshToken", refreshToken);
 
   const cookieOptions = {

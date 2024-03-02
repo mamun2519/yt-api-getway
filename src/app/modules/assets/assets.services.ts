@@ -2,31 +2,29 @@ import { Request } from "express";
 import { IGenericResponse } from "../../../interface/common";
 import { AuthService, MainService } from "../../../shared/axios";
 import { IUploadFile } from "../../../interface/file";
-import { v2 as cloudinary } from "cloudinary";
-const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
-  const files = req.files as IUploadFile[];
+import { FileUploadHelper } from "../../../helper/fileUploader";
+import { sendArrayReturnObject } from "../../../utils/tags";
 
-  const uploadPromises = files.map(async (file) => {
-    return await cloudinary.uploader.upload(file.path);
-  });
-
-  // // Wait for all uploads to complete
-  const results = await Promise.all(uploadPromises);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const uploadFIles = results.map((file: any) => {
-    return {
-      public_id: file.public_id,
-      type: file.format,
-      url: file.secure_url,
-    };
-  });
-
-  req.body.file = uploadFIles;
+const createAssetIntoDB = async (req: Request) => {
+  const SendingFile = req.file as IUploadFile;
+  const uploadedImage = await FileUploadHelper.uploadToCloudinary(SendingFile);
+  const file = {
+    public_id: uploadedImage?.public_id,
+    type: uploadedImage?.format,
+    url: uploadedImage?.secure_url,
+  };
+  //set file
+  req.body.file = file;
+  // persing data
   req.body.data = JSON.parse(req.body.data);
+  // send array or convert object
+  const tags = sendArrayReturnObject(req.body.data.tags);
+  // set tags
+  req.body.data.tags = tags;
   const uploadData = { ...req.body.data, file: req.body.file };
-
+  // set updated data
   req.body.data = uploadData;
+  // send main service response
   const response: IGenericResponse = await MainService.post(
     "/assets/insert",
     req.body.data,
@@ -37,6 +35,8 @@ const createAssetIntoDB = async (req: Request): Promise<IGenericResponse> => {
     }
   );
   return response;
+  // const uploadedImage = await FileUploadHelper.uploadToCloudinary(file);
+  // console.log(uploadedImage);
 };
 const getAllAssetsByUserFromDB = async (
   req: Request
