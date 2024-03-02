@@ -16,5 +16,5 @@ router.post(
 );
 router.get("/all-user", AssetController.getAllAssetByUser);
 router.get("/all-admin", AssetController.getAllAssetByAdmin);
-//route
+//routes
 export const AssetsRoute = router;
