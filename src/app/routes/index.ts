@@ -9,7 +9,7 @@ import { feedbackRoute } from "../modules/feedback/feedback.route";
 import { AnalyticsRoute } from "../modules/analytics/analytics.route";
 
 const router = express.Router();
-
+// route
 const moduleRoutes = [
   {
     path: "/auth",
