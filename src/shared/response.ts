@@ -12,6 +12,7 @@ interface IResponse {
   data?: unknown;
 }
 
+//send response
 const sendResponse = <T>(
   res: Response,
   data: {
