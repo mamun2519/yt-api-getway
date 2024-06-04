@@ -31,9 +31,9 @@ app.get("/health", (req: Request, res: Response) => {
 app.get("/", (req: Request, res: Response) => {
   res.status(StatusCodes.OK).send({ success: true, message: "Server is run" });
 });
-// Global Error Handler
+//* Global Error Handler
 app.use(globalErrorHandler);
-// Not Found Route
+//* Not Found Route
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(300).json({
     success: false,
