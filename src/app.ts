@@ -6,7 +6,7 @@ import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import { ApplicationRootRoute } from "./app/routes";
 const app: Application = express();
 
-//middleware
+//* middleware
 app.use([
   express.json(),
   cookieParser(),
@@ -19,23 +19,6 @@ app.use(
     credentials: true,
   })
 );
-// app.get("/create-payment-intent", async (req, res) => {
-//   const { items } = req.body;
-
-//   // Create a PaymentIntent with the order amount and currency
-//   const paymentIntent = await stripe.paymentIntents.create({
-//     amount: 550,
-//     currency: "usd",
-//     // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
-//     automatic_payment_methods: {
-//       enabled: true,
-//     },
-//   });
-
-//   res.send({
-//     clientSecret: paymentIntent.client_secret,
-//   });
-// });
 
 // application route
 app.use("/api/v1", ApplicationRootRoute);
@@ -44,7 +27,7 @@ app.get("/health", (req: Request, res: Response) => {
   res.status(StatusCodes.OK).send("Server Is Run Successfully");
 });
 
-// root api
+//* root api
 app.get("/", (req: Request, res: Response) => {
   res.status(StatusCodes.OK).send({ success: true, message: "Server is run" });
 });
