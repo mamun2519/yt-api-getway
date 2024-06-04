@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import config from "../config";
 
+// HTTp services
 const HttpService = (baseURL: string): AxiosInstance => {
   const instance = axios.create({
     baseURL: baseURL,
