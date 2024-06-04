@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { Secret } from "jsonwebtoken";
 import config from "../../config";
 import { jwtHelpers } from "../../helper/jwtHalper";
-//Auth Guard
+//*Auth Guard
 const AuthGuard =
   (...requiredRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
@@ -17,7 +17,7 @@ const AuthGuard =
       if (!token) {
         throw new API_Error(StatusCodes.UNAUTHORIZED, "You are not authorized");
       }
-      // verified token
+      //* verified token
       let verifiedUser = null;
       verifiedUser = jwtHelpers.verifyToken(
         token,
@@ -25,7 +25,7 @@ const AuthGuard =
       );
       req.user = verifiedUser; // role  , userid
 
-      // role diye guard korar jnno
+      //* role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
         throw new API_Error(StatusCodes.FORBIDDEN, "Forbidden");
       }
