@@ -15,9 +15,9 @@ const createAssetIntoDB = async (req: Request) => {
   };
   //set file
   req.body.file = file;
-  // persing data
+  // persing data ----
   req.body.data = JSON.parse(req.body.data);
-  // send array or convert object
+  // send array or convert object --------
   const tags = sendArrayReturnObject(req.body.data.tags);
   // set tags
   req.body.data.tags = tags;
