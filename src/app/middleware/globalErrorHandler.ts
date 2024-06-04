@@ -11,6 +11,7 @@ import handleZodError from "../../error/handleZodError";
 import handleCastError from "../../error/handleCastError";
 import API_Error from "../../error/apiError";
 
+//* global error handler
 const globalErrorHandler: ErrorRequestHandler = (
   error,
   req: Request,
